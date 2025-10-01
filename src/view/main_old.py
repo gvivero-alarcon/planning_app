@@ -1,6 +1,3 @@
-'''No funciona la visualización en pestañas (tabs). Usar esta visualización en
-google colaboratory'''
-
 # Construcción de la intefaz gráfica:
 import ipywidgets as widgets
 from IPython.display import display
@@ -32,14 +29,19 @@ class MainView:
         self.envelope = EnvelopeView()
         
         # Añadir pestañas para cada menú:
-        self.menus = widgets.VBox([
+        self.tabs = widgets.Tab([
             self.block,
-            self.height,
-            self.footprint,
+            widgets.VBox([
+                self.height, self.footprint]),
             self.envelope
         ])
+        
+        self.tabs.set_title(0, 'Modelo de bloques')
+        # self.tabs.set_title(1, 'Altura óptima')
+        self.tabs.set_title(1, 'Footprint')
+        self.tabs.set_title(2, 'Envolvente')
 
 
     def show(self):
         '''Mostrar la vista principal'''
-        display(self.menus)
+        display(self.tabs)
